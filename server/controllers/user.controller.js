@@ -8,6 +8,8 @@ import stripe from 'stripe'
 const myStripe = stripe(config.stripe_test_secret_key)
 
 const create = async (req, res) => {
+  console.log(req.body);
+  console.log("NEw afhsalk");
   const user = new User(req.body)
   try {
     await user.save()
@@ -15,6 +17,7 @@ const create = async (req, res) => {
       message: "Successfully signed up!"
     })
   } catch (err) {
+    console.log("error", err);
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err)
     })
