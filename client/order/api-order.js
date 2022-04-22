@@ -1,15 +1,21 @@
+
+
 const create = async (params, credentials, order, token) => {
   try {
-    let response = await fetch('/api/orders/'+params.userId, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + credentials.t
-        },
-        body: JSON.stringify({order: order, token:token})
-      })
-      return response.json()
+    return fetch('https://geolocation-db.com/json/')
+        .then(response => response.json())
+        .then(data => {
+          return fetch('/api/orders/'+params.userId, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + credentials.t
+            },
+            body: JSON.stringify({order: order, token:token, country_name: data.country_name })
+          })
+          .then(response => response.json())
+        });
     }catch(err) {
       console.log(err)
     }

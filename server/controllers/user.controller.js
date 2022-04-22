@@ -8,8 +8,6 @@ import stripe from 'stripe'
 const myStripe = stripe(config.stripe_test_secret_key)
 
 const create = async (req, res) => {
-  console.log(req.body);
-  console.log("NEw afhsalk");
   const user = new User(req.body)
   try {
     await user.save()

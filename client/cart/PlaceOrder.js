@@ -8,7 +8,7 @@ import auth from './../auth/auth-helper'
 import cart from './cart-helper.js'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import {create} from './../order/api-order.js'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   subheading: {
@@ -55,6 +55,7 @@ const PlaceOrder = (props) => {
         create({userId:jwt.user._id}, {
           t: jwt.token
         }, props.checkoutDetails, payload.token.id).then((data) => {
+            console.log("PLACE ORDER DATA", data);
           if (data.error) {
             setValues({...values, error: data.error})
           } else {

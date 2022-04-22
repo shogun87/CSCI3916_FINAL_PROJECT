@@ -21,6 +21,8 @@ import config from './../../config/config'
 import stripeButton from './../assets/images/stripeButton.png'
 import MyOrders from './../order/MyOrders'
 
+console.log("CONFIG", config);
+
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
     maxWidth: 600,

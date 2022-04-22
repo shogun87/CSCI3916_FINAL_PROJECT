@@ -2,6 +2,7 @@ import {Order, CartItem} from '../models/order.model'
 import errorHandler from './../helpers/dbErrorHandler'
 
 const create = async (req, res) => {
+  console.log(req.body);
   try {
     req.body.order.user = req.profile
     const order = new Order(req.body.order)
