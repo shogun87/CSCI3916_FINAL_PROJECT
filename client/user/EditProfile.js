@@ -50,6 +50,7 @@ export default function EditProfile({ match }) {
       email: '',
       password: '',
       seller: false,
+      admin: false,
       redirectToProfile: false,
       error: ''
   })
@@ -64,7 +65,7 @@ export default function EditProfile({ match }) {
       if (data && data.error) {
         setValues({...values, error: data.error})
       } else {
-        setValues({...values, name: data.name, email: data.email, seller: data.seller})
+        setValues({...values, name: data.name, email: data.email, seller: data.seller, admin: data.admin})
       }
     })
     return function cleanup(){
@@ -73,12 +74,14 @@ export default function EditProfile({ match }) {
 
   }, [match.params.userId])
 
+  // TODO: add a similar switch for an admin 
   const clickSubmit = () => {
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
-      seller: values.seller || undefined
+      seller: values.seller || undefined,
+      admin: values.admin || undefined
     }
     update({
       userId: match.params.userId
@@ -99,6 +102,9 @@ export default function EditProfile({ match }) {
   }
   const handleCheck = (event, checked) => {
     setValues({...values, 'seller': checked})
+  }
+  const handleAdminCheck = (event, checked) => {
+    setValues({ ...values, 'admin': checked })
   }
 
   if (values.redirectToProfile) {
@@ -127,7 +133,22 @@ export default function EditProfile({ match }) {
               />}
             label={values.seller? 'Active' : 'Inactive'}
           />
-          <br/> {
+          <Typography variant="subtitle1" className={classes.subheading}>
+            Admin Account
+          </Typography>
+          <FormControlLabel
+            control={
+              <Switch classes={{
+                checked: classes.checked,
+                bar: classes.bar,
+              }}
+                checked={values.admin}
+                onChange={handleAdminCheck}
+              />}
+            label={values.admin ? 'Active' : 'Inactive'}
+          />
+          <br />
+          {
             values.error && (<Typography component="p" color="error">
               <Icon color="error" className={classes.error}>error</Icon>
               {values.error}

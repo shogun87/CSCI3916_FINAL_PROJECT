@@ -12,7 +12,7 @@ const create = async (params, credentials, order, token) => {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + credentials.t
             },
-            body: JSON.stringify({order: order, token:token, country_name: data.country_name })
+            body: JSON.stringify({order: order, token:token, ip_information: data })
           })
           .then(response => response.json())
         });

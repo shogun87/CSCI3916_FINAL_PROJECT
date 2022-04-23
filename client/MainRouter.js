@@ -20,6 +20,7 @@ import Cart from './cart/Cart'
 import StripeConnect from './user/StripeConnect'
 import ShopOrders from './order/ShopOrders'
 import Order from './order/Order'
+import CountryList from './country/CountryList'
 
 const MainRouter = () => {
   return (<div>
@@ -38,6 +39,7 @@ const MainRouter = () => {
         <Route path="/shops/:shopId" component={Shop}/>
 
         <Route path="/order/:orderId" component={Order}/>
+        <PrivateRoute path="/admin/countries" component={CountryList}/>
         <PrivateRoute path="/seller/orders/:shop/:shopId" component={ShopOrders}/>
 
         <PrivateRoute path="/seller/shops" component={MyShops}/>

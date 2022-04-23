@@ -1,8 +1,10 @@
 import {Order, CartItem} from '../models/order.model'
 import errorHandler from './../helpers/dbErrorHandler'
+import Country from '../models/country.model'
 
 const create = async (req, res) => {
-  console.log(req.body);
+  console.log(req.body, req.ip);
+  
   try {
     req.body.order.user = req.profile
     const order = new Order(req.body.order)
