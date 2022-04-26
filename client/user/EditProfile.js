@@ -74,7 +74,6 @@ export default function EditProfile({ match }) {
 
   }, [match.params.userId])
 
-  // TODO: add a similar switch for an admin 
   const clickSubmit = () => {
     const user = {
       name: values.name || undefined,

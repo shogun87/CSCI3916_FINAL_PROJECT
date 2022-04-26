@@ -21,6 +21,7 @@ const update = async (params, credentials, country) => {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + credentials.t
       },
       body: JSON.stringify(country)
@@ -29,4 +30,9 @@ const update = async (params, credentials, country) => {
   } catch (err) {
     console.log(err)
   }
+}
+
+export {
+  read,
+  update
 }

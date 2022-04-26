@@ -6,10 +6,19 @@ const create = async (req, res) => {
   console.log(req.body, req.ip);
   
   try {
-    req.body.order.user = req.profile
     const order = new Order(req.body.order)
-    let result = await order.save()
-    res.status(200).json(result)
+    const country_name = req.body.ip_information.country_name
+    const country = await Country.findOne({ name: country_name })
+    console.log(country);
+    if (country != null && country.allowPurchase) {
+      req.body.order.user = req.profile
+      let result = await order.save()
+      res.status(200).json(result)
+    } else {
+      return res.status(400).json({
+        error: 'Country banned or not found.'
+      })
+    }
   } catch (err){
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err)

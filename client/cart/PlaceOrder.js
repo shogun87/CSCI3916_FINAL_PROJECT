@@ -55,7 +55,6 @@ const PlaceOrder = (props) => {
         create({userId:jwt.user._id}, {
           t: jwt.token
         }, props.checkoutDetails, payload.token.id).then((data) => {
-            console.log("PLACE ORDER DATA", data);
           if (data.error) {
             setValues({...values, error: data.error})
           } else {
