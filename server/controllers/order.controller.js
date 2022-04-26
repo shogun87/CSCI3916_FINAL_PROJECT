@@ -4,12 +4,14 @@ import Country from '../models/country.model'
 
 const create = async (req, res) => {  
   try {
-    const order = new Order(req.body.order)
     const country_name = req.body.ip_information.country_name
     const country = await Country.findOne({ name: country_name })
+    req.body.order.user = req.profile
+    req.body.order.ip_address = req.body.ip_information.IPv4
+    req.body.order.transaction_status = country != null && country.allowPurchase ? 'Accepted' : 'Declined'
+    const order = new Order(req.body.order)
+    let result = await order.save()
     if (country != null && country.allowPurchase) {
-      req.body.order.user = req.profile
-      let result = await order.save()
       res.status(200).json(result)
     } else {
       return res.status(400).json({

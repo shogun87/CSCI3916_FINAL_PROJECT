@@ -41,7 +41,7 @@ const OrderSchema = new mongoose.Schema({
 	},
 	transaction_status: {
 		type: String,
-    default: 'Declined',
+    default: 'Accepted',
     enum: ['Declined', 'Accepted']
 	},
 	user: {type: mongoose.Schema.ObjectId, ref: 'User'}
