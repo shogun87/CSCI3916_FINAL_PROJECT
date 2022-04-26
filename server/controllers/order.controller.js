@@ -2,14 +2,11 @@ import {Order, CartItem} from '../models/order.model'
 import errorHandler from './../helpers/dbErrorHandler'
 import Country from '../models/country.model'
 
-const create = async (req, res) => {
-  console.log(req.body, req.ip);
-  
+const create = async (req, res) => {  
   try {
     const order = new Order(req.body.order)
     const country_name = req.body.ip_information.country_name
     const country = await Country.findOne({ name: country_name })
-    console.log(country);
     if (country != null && country.allowPurchase) {
       req.body.order.user = req.profile
       let result = await order.save()

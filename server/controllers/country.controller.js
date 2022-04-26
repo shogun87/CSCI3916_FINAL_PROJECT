@@ -44,8 +44,24 @@ const update = async (req, res) => {
   }
 }
 
+const search = async (req, res) => {
+  let query = {}
+  if (req.query.search !== '') {
+    query = { name: {'$regex': req.query.search, '$options': "i"} }
+  }
+  try {
+    let countries = await Country.find(query)
+    res.json({ countries: countries })
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }  
+}
+
 export default {
   countryByName,
   read,
-  update
+  update,
+  search
 }

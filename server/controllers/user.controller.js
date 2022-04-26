@@ -98,6 +98,27 @@ const isSeller = (req, res, next) => {
   next()
 }
 
+const isAdmin = async (req, res, next) => {
+  try {
+    const id = req.auth._id
+    let user = await User.findById(id)
+    if (!user)
+      return res.status('400').json({
+        error: "User not found"
+      })
+    if (!user.admin) {
+      return res.status('403').json({
+        error: "User is not a admin"
+      })
+    }
+    next()
+  } catch (err) {
+    return res.status('400').json({
+      error: "Could not retrieve user"
+    })
+  }
+}
+
 const stripe_auth = (req, res, next) => {
   request({
     url: "https://connect.stripe.com/oauth/token",
@@ -183,5 +204,6 @@ export default {
   isSeller,
   stripe_auth,
   stripeCustomer,
-  createCharge
+  createCharge,
+  isAdmin
 }

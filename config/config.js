@@ -1,6 +1,3 @@
-
-console.log(process.env.STRIPE_CLIENT_ID, process.env.STRIPE_SECRET, process.env.STRIPE_API_KEY)
-
 const config = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3000,

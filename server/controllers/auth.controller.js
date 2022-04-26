@@ -30,7 +30,7 @@ const signin = async (req, res) => {
 
       return res.json({
         token,
-        user: {_id: user._id, name: user.name, email: user.email, seller: user.seller}
+        user: {_id: user._id, name: user.name, email: user.email, seller: user.seller, admin: user.admin}
       })
   } catch (err) {
     return res.status('401').json({
